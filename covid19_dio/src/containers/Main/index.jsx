@@ -1,4 +1,3 @@
-import { Container } from '@material-ui/core'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import Api from '../../api'
 import Board from './components/Board'
@@ -10,11 +9,8 @@ function Main() {
 
 
     const getCovidData = useCallback((country) => {
-        
-        console.log(`country ${country}`);
-
         Api.getCountry(country)
-        .then(data => setData(data))
+            .then(data => setData(data))
     }, [])
 
     useEffect(() => {
@@ -25,8 +21,8 @@ function Main() {
         <ContainerStyled>
             <div className="mb-2">
 
-            </div>   
-            <Board data={data} />         
+            </div>
+            <Board data={data} />
         </ContainerStyled>
     )
 }
