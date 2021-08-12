@@ -9,8 +9,8 @@ function Main() {
     const [country, setCountry] = useState('brazil')
     const updateAt = new Date().toLocaleString()
 
-
     const getCovidData = useCallback((country) => {
+        console.log(`country -> ${country}`);
         Api.getCountry(country)
             .then(data => setData(data))
     }, [])
@@ -24,6 +24,10 @@ function Main() {
         setCountry(country)
     }
 
+    const handleRefresh = (country) => {        
+        setCountry(country)
+    }
+
     return (
         <ContainerStyled>
             <div className="mb-2">
@@ -33,6 +37,7 @@ function Main() {
                     onChange={handleChange}
                     country={country}
                     getCovidData={getCovidData}
+                    handleRefresh={handleRefresh}
                 />
             </div>
             <Board data={data} />

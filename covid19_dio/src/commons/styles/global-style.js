@@ -35,8 +35,30 @@ const globalStyle = createGlobalStyle`
     padding-top: 16px;
   }
 
+  .pt-3 {  
+    display: flex;     
+    justify-content: flex-end;  
+  }
+
+  .pt-4 {  
+    display: flex;    
+    justify-content: center;  
+  }
+
   .cursor {
     cursor: pointer;
+  }
+
+  #divMaior{
+    display: flex;    
+    justify-content: flex-end;
+  }
+
+  #btnPanel{    
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;   
+    
   }
 
 `

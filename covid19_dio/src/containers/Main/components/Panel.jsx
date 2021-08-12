@@ -1,12 +1,12 @@
 import React, { memo } from "react"
-import RefreshIcon from '../../../assets/images/refresh.svg'
 import { Card, Typography, Button, Select, MenuItem } from '../../../components'
 import COUNTRIES from "../../../commons/constants/countries"
 import { CardPanelContentStyled, ItemStyled } from "./style"
+import refreshIcon from "../../../assets/images/refresh.svg"
 
 const navigatorHasShare = navigator.share
 
-function Panel({ updateAt, onChange, data, country, getCoviddata }) {
+function Panel({ updateAt, onChange, data, country, getCoviddata, handleRefresh }) {
     const { cases, recovered, deaths, todayCases, todayDeaths } = data
 
     const renderCountries = (country, index) => (
@@ -32,6 +32,10 @@ function Panel({ updateAt, onChange, data, country, getCoviddata }) {
         })
     }
 
+    const refreshInfo = () => {
+        handleRefresh(country)
+    }
+
     const renderShareButton = (
         <div>
             <Button variant="contained" color="primary" onClick={shareInfo}>
@@ -48,23 +52,42 @@ function Panel({ updateAt, onChange, data, country, getCoviddata }) {
         </div>
     )
 
+    const renderRefreshButton = (
+        <div>
+            <Button variant="contained" onClick={refreshInfo}>
+                <img src={refreshIcon} alt="atualizar" />
+            </Button>
+        </div>
+    )
+
     return (
         <Card>
+            <div id="btnPanel">
+                <Typography variant="p" component="span" color="primary"> *Atualizado em : {updateAt}</Typography>
+            </div>
             <CardPanelContentStyled>
                 <div>
-                    <Typography variant="h5" component="span" color="primary">COVID19 </Typography>
-                    <Typography variant="h5" component="span" color="primary"> Painel Coronavírus </Typography>
-                    <Typography variant="h5" component="span" color="primary"> Atualizado em : {updateAt}</Typography>
+                    <div className="pt-4">
+                        <Typography variant="h1" component="span" color="primary"> Painel COVID-19 </Typography>
+                    </div>
                     <div className="pt-2">
                         <Select onChange={onChange} value={country}>
                             {COUNTRIES.map(renderCountries)}
                         </Select>
                     </div>
                 </div>
-                {navigatorHasShare ? renderShareButton : renderCopyButton}
-
             </CardPanelContentStyled>
-        </Card>
+
+            <div id="btnPanel">
+                <div id="btnPanel">
+                    {renderRefreshButton}
+                </div>
+                <div id="btnPanel">
+                    {navigatorHasShare ? renderShareButton : renderCopyButton}
+                </div>
+            </div>
+
+        </Card >
     )
 }
 
